@@ -1,23 +1,11 @@
 const ajaxSelectTagName = 'ajax-select';
-const template = document.createElement('template');
-template.innerHTML = `
-  <select>
-    <option></option>
-  </select>
-`;
 
-class AJAXSelect extends HTMLElement {
+class AJAXSelect extends HTMLSelectElement {
   constructor() {
     super();
-
-    this.attachShadow({mode: 'open'});
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
   connectedCallback() {
-    const selectElem = this.shadowRoot.querySelector('select');
-    selectElem.setAttribute('name', this.name);
-
     let xhr = new XMLHttpRequest();
     xhr.onload = () => {
       if(xhr.status >= 200 && xhr.status < 300) {
@@ -25,25 +13,17 @@ class AJAXSelect extends HTMLElement {
         for(let x in response) {
           let optionElem = document.createElement('option');
           optionElem.text = response[x];
-          selectElem.add(optionElem);
+          this.add(optionElem);
         }
       }
     };
-    xhr.open('GET', this.url);
+    xhr.open('GET', this.ajaxUrl);
     xhr.send();
   }
 
-  get name() {
-    return this.getAttribute('name');
-  }
-
-  set name(value) {
-    this.setAttribute('name', value);
-  }
-
-  get url() {
-    return this.getAttribute('url');
+  get ajaxUrl() {
+    return this.getAttribute('ajax-url');
   }
 }
 
-customElements.define(ajaxSelectTagName, AJAXSelect);
+customElements.define(ajaxSelectTagName, AJAXSelect, {extends: 'select'});
