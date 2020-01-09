@@ -3,22 +3,38 @@ const ajaxSelectTagName = 'ajax-select';
 class AJAXSelect extends HTMLSelectElement {
   constructor() {
     super();
+
+    this._xhr = new XMLHttpRequest();
+    this._xhr.onload = () => {
+      if(this.isSuccess(this._xhr.status)) {
+        this.fetchElements();
+      }
+    };
   }
 
   connectedCallback() {
-    let xhr = new XMLHttpRequest();
-    xhr.onload = () => {
-      if(xhr.status >= 200 && xhr.status < 300) {
-        let response = JSON.parse(xhr.response);
-        for(let x in response) {
-          let optionElem = document.createElement('option');
-          optionElem.text = response[x];
-          this.add(optionElem);
-        }
-      }
-    };
-    xhr.open('GET', this.ajaxUrl);
-    xhr.send();
+    this._xhr.open('GET', this.ajaxUrl);
+    this._xhr.send();
+  }
+
+  isSuccess(status) {
+    return status >= 200 && status < 300;
+  }
+
+  fetchElements() {
+    let response = JSON.parse(this._xhr.response);
+    for(let x in response) {
+      this.addOption(response[x].text, response[x].value);
+    }
+  }
+
+  addOption(text, value) {
+    let option = document.createElement('option');
+    option.text = text;
+    if(value) {
+      option.value = value;
+    }
+    this.add(option);
   }
 
   get ajaxUrl() {
