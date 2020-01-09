@@ -7,7 +7,7 @@ class AJAXSelect extends HTMLSelectElement {
     this._xhr = new XMLHttpRequest();
     this._xhr.onload = () => {
       if(this.isSuccess(this._xhr.status)) {
-        this.fetchElements();
+        this.onloadCallback();
       }
     };
   }
@@ -21,9 +21,7 @@ class AJAXSelect extends HTMLSelectElement {
     return status >= 200 && status < 300;
   }
 
-  fetchElements() {
-    let response = JSON.parse(this._xhr.response);
-
+  fetchElements(response) {
     // find keys to read values from response objects
     let textField = 'text';    // default option text field's key
     let valueField = 'value';  // default option value field's key
@@ -45,6 +43,16 @@ class AJAXSelect extends HTMLSelectElement {
     this.add(option);
   }
 
+  onloadCallback() {
+    let response = JSON.parse(this._xhr.response);
+    if(this.ajaxCallback && window[this.ajaxCallback]) {
+      // invoke the callback function passing the service response as argument
+      window[this.ajaxCallback].call(this, response);
+    } else {
+      this.fetchElements(response);
+    }
+  }
+
   get ajaxUrl() {
     return this.getAttribute('ajax-url');
   }
@@ -55,6 +63,10 @@ class AJAXSelect extends HTMLSelectElement {
 
   get ajaxDelimiter() {
     return this.getAttribute('ajax-delimiter');
+  }
+
+  get ajaxCallback() {
+    return this.getAttribute('ajax-callback');
   }
 }
 
