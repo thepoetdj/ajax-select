@@ -23,9 +23,17 @@ class AJAXSelect extends HTMLSelectElement {
 
   fetchElements() {
     let response = JSON.parse(this._xhr.response);
-    for(let x in response) {
-      this.addOption(response[x].text, response[x].value);
+
+    // find keys to read values from response objects
+    let textField = 'text';    // default option text field's key
+    let valueField = 'value';  // default option value field's key
+    if(this.ajaxFields) {
+      let fields = this.ajaxFields.split(',');  // expect comma as default keys delimiter
+      textField = fields[0];
+      valueField = fields[1];
     }
+
+    response.forEach(element => this.addOption(element[textField], element[valueField]));
   }
 
   addOption(text, value) {
@@ -39,6 +47,10 @@ class AJAXSelect extends HTMLSelectElement {
 
   get ajaxUrl() {
     return this.getAttribute('ajax-url');
+  }
+
+  get ajaxFields() {
+    return this.getAttribute('ajax-fields');
   }
 }
 
