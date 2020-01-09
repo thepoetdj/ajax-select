@@ -28,7 +28,7 @@ class AJAXSelect extends HTMLSelectElement {
     let textField = 'text';    // default option text field's key
     let valueField = 'value';  // default option value field's key
     if(this.ajaxFields) {
-      let fields = this.ajaxFields.split(',');  // expect comma as default keys delimiter
+      let fields = this.ajaxFields.split(this.ajaxDelimiter || ',');  // expect comma as default keys delimiter
       textField = fields[0];
       valueField = fields[1];
     }
@@ -51,6 +51,10 @@ class AJAXSelect extends HTMLSelectElement {
 
   get ajaxFields() {
     return this.getAttribute('ajax-fields');
+  }
+
+  get ajaxDelimiter() {
+    return this.getAttribute('ajax-delimiter');
   }
 }
 
