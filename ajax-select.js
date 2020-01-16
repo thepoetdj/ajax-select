@@ -1,6 +1,10 @@
 const ajaxSelectTagName = 'ajax-select';
 
 class AJAXSelect extends HTMLSelectElement {
+  static get observedAttributes() {
+    return ['ajax-callback'];
+  }
+
   constructor() {
     super();
 
@@ -15,6 +19,12 @@ class AJAXSelect extends HTMLSelectElement {
   connectedCallback() {
     this._xhr.open('GET', this.ajaxUrl);
     this._xhr.send();
+  }
+
+  attributeChangedCallback(name, oldVal, newVal) {
+    if(oldVal) {
+      this.onloadCallback();
+    }
   }
 
   isSuccess(status) {
@@ -44,6 +54,9 @@ class AJAXSelect extends HTMLSelectElement {
   }
 
   onloadCallback() {
+    // clear option elements, if any
+    while(this.options.length) this.remove(0);
+
     let response = JSON.parse(this._xhr.response);
     if(this.ajaxCallback && window[this.ajaxCallback]) {
       // invoke the callback function passing the service response as argument
@@ -67,6 +80,12 @@ class AJAXSelect extends HTMLSelectElement {
 
   get ajaxCallback() {
     return this.getAttribute('ajax-callback');
+  }
+
+  set ajaxCallback(value) {
+    if(typeof(window[value]) === 'function') {
+      this.setAttribute('ajax-callback', value);
+    }
   }
 }
 
