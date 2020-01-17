@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>AJAX Select</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="row">
+          <h3><span class="badge badge-light">Countries dropdown samples:</span></h3>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label for="simple">Dropdown with only Ajax URL:</label>
+            <select is="ajax-select" class="custom-select" id="simple" ajax-url="https://cdn.jsdelivr.net/gh/DhruvPJoshi/ajax-select@db/countries.json"></select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="cust-fields">Dropdown that reads custom fields:</label>
+            <select is="ajax-select" class="custom-select" id="cust-fields" ajax-url="https://restcountries.eu/rest/v2/all?fields=name;cioc" ajax-fields="name,cioc"></select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="cust-callback">Dropdown populated with custom function:</label>
+            <select is="ajax-select" class="custom-select" id="cust-callback" ajax-url="https://restcountries.eu/rest/v2/all" ajax-callback="countrySelector"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- include the ajax-select CDN -->
+    <script src="https://cdn.jsdelivr.net/gh/DhruvPJoshi/ajax-select/ajax-select.min.js"></script>
+    <script>
+      // pass response as callback function's argument
+      function countrySelector(response) {
+        // this refers to the select element on which callback function is assigned to
+        response.forEach(element => this.addOption(element['name'], element['numericCode']));
+      }
+    </script>
+  </body>
+</html>
