@@ -38,12 +38,6 @@
 
     <!-- include the ajax-select CDN -->
     <script src="https://cdn.jsdelivr.net/gh/DhruvPJoshi/ajax-select/ajax-select.min.js"></script>
-    <script>
-      // pass response as callback function's argument
-      function countrySelector(response) {
-        // this refers to the select element on which callback function is assigned to
-        response.forEach(element => this.addOption(element['name'], element['numericCode']));
-      }
-    </script>
+    <script src="assets/js/script.js"></script>
   </body>
 </html>
