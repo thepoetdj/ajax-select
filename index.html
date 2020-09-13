@@ -4,13 +4,65 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300">
+
     <!-- bootstrap css -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <title>AJAX Select</title>
   </head>
 
   <body>
+    <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
+      <div class="container">
+        <a class="navbar-brand" href="index.html"><strong>AJAX Select</strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbarNav" class="collapse navbar-collapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link scroll-link" href="#usage">Usage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/DhruvPJoshi/ajax-select" target="_blank">Fork on GitHub</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="top-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 offset-md-2 text">
+            <h1 class="wow fadeInLeftBig">AJAX Select</h1>
+            <div class="description wow fadeInLeftBig">
+              <p>
+                A web component to populate option fields of a select element from a web service.
+              </p>
+            </div>
+            <div class="top-big-link wow fadeInUp">
+              <a class="btn btn-primary btn-link-1" href="https://github.com/DhruvPJoshi/ajax-select">
+                <i class="fa fa-github"></i>
+                Fork on GitHub
+              </a>
+              <a class="btn btn-primary btn-link-2 scroll-link" href="#usage">
+                <i class="fa fa-code"></i>
+                Usage
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--
     <div class="container">
       <div class="row">
         <div class="row">
@@ -35,7 +87,12 @@
         </div>
       </div>
     </div>
+    -->
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="assets/js/wow.min.js"></script>
     <!-- include the ajax-select CDN -->
     <script src="https://cdn.jsdelivr.net/gh/DhruvPJoshi/ajax-select/ajax-select.min.js"></script>
     <script src="assets/js/script.js"></script>
