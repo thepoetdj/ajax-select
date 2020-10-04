@@ -10,6 +10,8 @@
     <!-- bootstrap css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.0/build/styles/darcula.min.css">
 
     <!-- custom css -->
     <link rel="stylesheet" href="assets/css/animate.css">
@@ -19,6 +21,7 @@
   </head>
 
   <body>
+    <!--
     <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
       <div class="container">
         <a class="navbar-brand" href="index.html"><strong>AJAX Select</strong></a>
@@ -37,6 +40,7 @@
         </div>
       </div>
     </nav>
+    -->
 
     <div class="top-content">
       <div class="container">
@@ -53,46 +57,87 @@
                 <i class="fa fa-github"></i>
                 Fork on GitHub
               </a>
-              <a class="btn btn-primary btn-link-2 scroll-link" href="#usage">
+              <a class="btn btn-primary btn-link-2 scroll-link" href="#manual">
                 <i class="fa fa-code"></i>
-                Usage
+                Manual
               </a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!--
-    <div class="container">
-      <div class="row">
+
+    <div id="manual" class="usage-container section-container">
+      <div class="container">
         <div class="row">
-          <h3><span class="badge badge-light">Countries dropdown samples:</span></h3>
+          <div class="col usage section-description wow fadeIn">
+            <h2>How to use it?</h2>
+            <div class="divider-1 wow fadeInUp"><span></span></div>
+          </div>
         </div>
-
         <div class="row">
-          <div class="col-md-4">
-            <label for="simple">Dropdown with only Ajax URL:</label>
-            <select is="ajax-select" class="custom-select" id="simple" ajax-url="https://cdn.jsdelivr.net/gh/DhruvPJoshi/ajax-select@db/countries.json"></select>
-          </div>
+          <div class="col-md-12">
+            <ul class="steps">
+              <li>
+                <h5>Link the library:</h5>
+                <p>You will have to include the following line before the end of <code>&lt;body&gt;</code> element in order to use <code>ajax-select</code> on any of your web page(s):</p>
+                <pre>
+                  <code class="html">&lt;script src="https://cdn.jsdelivr.net/gh/DhruvPJoshi/ajax-select/ajax-select.min.js"&gt;&lt;/script&gt;</code>
+                </pre>
+              </li>
 
-          <div class="col-md-4">
-            <label for="cust-fields">Dropdown that reads custom fields:</label>
-            <select is="ajax-select" class="custom-select" id="cust-fields" ajax-url="https://restcountries.eu/rest/v2/all?fields=name;cioc" ajax-fields="name,cioc"></select>
-          </div>
+              <li>
+                <h5>Basic usage:</h5>
+                <p>Once you have included the library, you can use this webcomponent on any of your existing <code>select</code> elements or in new ones, based on the use case. All you have to do is set the <code>is</code> attribute of a <code>select</code> element as follows:</p>
+                <pre>
+                  <code class="html">&lt;select is="ajax-select" name="countries" ajax-url="https://cdn.jsdelivr.net/gh/DhruvPJoshi/ajax-select@db/countries.json"&gt;&lt;/select&gt;</code>
+                </pre>
+                <p>You would have noticed that in the example above there is an unknown attribute used inside the <code>select</code> element. <code>ajax-url</code> is a <strong>mandatory attribute</strong> when using this webcomponent. This is where you will specify a RESTful service url. By default, <code>ajax-select</code> will try to read the <code>text</code> and <code>value</code> keys from <em>JSON response</em> of the webservice, which will then be used as text and value of an <code>option</code> element, respectively.</p>
+              </li>
 
-          <div class="col-md-4">
-            <label for="cust-callback">Dropdown populated with custom function:</label>
-            <select is="ajax-select" class="custom-select" id="cust-callback" ajax-url="https://restcountries.eu/rest/v2/all" ajax-callback="countrySelector"></select>
+              <li id="cust-keys">
+                <h5>Read custom keys:</h5>
+                <p>What if your service url returns <em>a response that does not contain either text or value or both of the keys?</em> In such cases, you can use the <code>ajax-fields</code> attribute which will tell this webcomponent which of the reponse fields to read and use in an option element.</p>
+                <pre>
+                  <code class="html">&lt;select is="ajax-select" name="countries" ajax-url="https://restcountries.eu/rest/v2/all?fields=name;nativeName" ajax-fields="name,nativeName"&gt;&lt;/select&gt;</code>
+                </pre>
+                <p>The <code>ajax-fields</code> attribute accepts values in this format: <code><em>textKey,valueKey</em></code>. Both the <code>textKey</code> and <code>valueKey</code> specifies which key from service response should be used as text and value in the option element, respectively.</p>
+                <p>In the example above, we read the <code>name</code> and <code>nativeName</code> fields from mentioned REST url and use them in the generated option element, where the text of the element will be name of a Country (since we are using a countries webservice) and the value of the element will be the native name of that Country.</p>
+              </li>
+              <li>
+                <h5>Callbacks:</h5>
+                <p>There might be some cases where you want to manipulate the service response before populating the options. For those cases, you can use the <code>ajax-callback</code> attribute and provide the name of a custom JavaScript function which will manipulate and populate the options.</p>
+                <pre>
+                  <code class="html">&lt;select is="ajax-select" name="countries" ajax-url="https://restcountries.eu/rest/v2/all" ajax-callback="countrySelector"&gt;&lt;/select&gt;
+
+&lt;script&gt;
+  function countrySelector(response) {
+    response.forEach(element => this.addOption(element['name'], element['numericCode']));
+  }
+&lt;/script&gt;</code>
+                </pre>
+                <p>When using a custom callback function, there are two things you should remember:<br />
+                1) It must be a single parameter function, as <code>ajax-select</code> will pass the response of the webservice to the callback function on invocation<br />
+                2) You can use <code>this</code> variable, which will refer to the select element to which callback function is attached</p>
+              </li>
+              <li>
+                <h5>Extras:</h5>
+                <p>In <a href="#cust-keys">Read custom keys</a> section, we saw how to read and use custom fields. There is an attribute available called <code>ajax-delimiter</code>, in which you can specify the field separator for the <code>ajax-fields</code>.</p>
+                <pre>
+                  <code class="html">&lt;select is="ajax-select" name="countries" ajax-url="https://restcountries.eu/rest/v2/all?fields=name;nativeName" ajax-fields="name|nativeName" ajax-delimiter="|"&gt;&lt;/select&gt;</code>
+                </pre>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-    -->
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/highlight.pack.js"></script>
     <!-- include the ajax-select CDN -->
     <script src="https://cdn.jsdelivr.net/gh/DhruvPJoshi/ajax-select/ajax-select.min.js"></script>
     <script src="assets/js/script.js"></script>

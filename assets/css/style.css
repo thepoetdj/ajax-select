@@ -146,3 +146,32 @@ h1, h2 {
     color: #fff;
     box-shadow: none;
 }
+
+.divider-1 {
+  line-height: 0 !important;
+}
+
+.divider-1 span {
+	display: inline-block;
+	width: 200px;
+	border-bottom: 1px dashed #ccc;
+}
+
+.steps {
+  margin-top: 1rem;
+  list-style-type: none;
+  text-align: left;
+  padding: 0;
+}
+
+.steps li {
+  margin-top: 1rem;
+}
+
+.steps li p {
+  color: #3f3f3f;
+}
+
+.steps li pre {
+  line-height: 15px;
+}
