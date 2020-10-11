@@ -1,0 +1,15 @@
+@media (min-width: 768px) and (max-width: 991px) {
+	.top-content { padding: 180px 0; }
+}
+
+@media (max-width: 767px) {
+  .top-content { padding: 140px 0; }
+	.top-content .top-big-link { margin-top: 25px; }
+	.top-content .top-big-link a.btn { margin-top: 10px; }
+
+	.footer-bottom { padding-top: 20px; }
+}
+
+@media (max-width: 415px) {
+	h1, h2 { font-size: 32px; }
+}
