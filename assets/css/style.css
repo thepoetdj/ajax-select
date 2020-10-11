@@ -175,3 +175,23 @@ h1, h2 {
 .steps li pre {
   line-height: 15px;
 }
+
+footer {
+	padding: 40px 0 0 0;
+	background: #444;
+	color: #aaa;
+	text-align: center;
+}
+
+.footer-bottom {
+	padding-bottom: 25px;
+	text-align: center;
+}
+
+.footer-bottom a {
+	font-size: 32px;
+    color: #666;
+    line-height: 40px;
+}
+
+.footer-bottom a:hover, .footer-bottom a:focus { color: #888; }
